@@ -6,20 +6,20 @@ const tbody = document.querySelector("tbody");
 
 
 const tareas = [
-    {id: 1, nombre: "Desayunar", completado: true},
-    {id: 2, nombre: "Bañarse",completado: true},
-    {id: 3, nombre: "Estudiar", completado: false}
+    {id: getRandomInt(100), nombre: "Desayunar", completado: true},
+    {id: getRandomInt(100), nombre: "Bañarse",completado: true},
+    {id: getRandomInt(100), nombre: "Estudiar", completado: false}
 ]
 
-var idNumero = tareas.length
+var idNumero = 0
 var tareaCompleta 
 function render(){
     let html = ""
 for (tarea of tareas) {
 if(tarea.completado == false){
-    var tareaCompleta = "<div style='color: red'>Sin completar </div>"
+    var tareaCompleta = "<div style='background-color: red; color: white;'>  Sin completar </div>"
 }else{
-    var tareaCompleta = "<div style='color: green'>Completado </div>"
+    var tareaCompleta = "<div style='background-color: green; color: white;'>  Completado </div>"
 }
 html += `
 <tr>
@@ -27,7 +27,7 @@ html += `
 <td>${tarea.nombre}</td>
 <td>${tareaCompleta}</td>
 <td><button onclick="cambiar(${tarea.id})"> Cambiar estado </button></td>
-<td><button onclick="borrar(${tarea.id})"> Eliminar </button></td>
+<td><button id="delete" onclick="borrar(${tarea.id})"> Eliminar </button></td>
 </tr>`;
 }
 tbody.innerHTML = html;
@@ -40,7 +40,7 @@ render();
 btnAgregar.addEventListener("click", () => {
 
 const nombreTarea = tareaIngreso.value
-tareas.push({id: ++idNumero, nombre: nombreTarea, completado: false})
+tareas.push({id: idNumero = getRandomInt(100), nombre: nombreTarea, completado: false})
 tareaIngreso.value = ""
 render();
 })
@@ -61,3 +61,6 @@ else{
 render();
 }
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
